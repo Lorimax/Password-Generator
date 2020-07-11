@@ -37,7 +37,6 @@ class GUI():
         if not self.__passwordSettings:
             self.__drawNothingSelected()
         elif self.__isCorrectPasswordLength():
-            self.__setPasswordLength()
             settingsConverter = PasswordSettings2ConfigurationConverter()
             configurationHandler = PasswordConfigurationHandler()
             passwordConfiguration = settingsConverter.convertSettings2Configuration(self.__passwordSettings)
@@ -45,16 +44,16 @@ class GUI():
             self.__drawPassword(password)
 
     def __drawWrongPasswordLength(self):
-        self.output.insert(INSERT, "Invalid password length!\n")
-        self.output.pack()
+        self.__output.insert(INSERT, "Invalid password length!\n")
+        self.__output.pack()
 
     def __drawNothingSelected(self):
-        self.output.insert(INSERT, "Nothing selected!\n")
-        self.output.pack()
+        self.__output.insert(INSERT, "Nothing selected!\n")
+        self.__output.pack()
 
     def __drawPassword(self, password):
-        self.output.insert(INSERT, str(password) + '\n')
-        self.output.pack()
+        self.__output.insert(INSERT, str(password) + '\n')
+        self.__output.pack()
 
     def __setUpperCase(self, event):
         self.__drawSetting(PasswordSettings.UPPER_CASE)
@@ -84,27 +83,27 @@ class GUI():
 
     def __clear(self, event):
         self.__passwordSettings.clear()
-        self.output.delete('1.0', END)
+        self.__output.delete('1.0', END)
 
     def __drawSetting(self,setting):
         if setting == PasswordSettings.UPPER_CASE:
-            self.output.insert(INSERT, "Upper case characters selected\n")
-            self.output.pack()
+            self._output.insert(INSERT, "Upper case characters selected\n")
+            self._output.pack()
         elif setting == PasswordSettings.LOWER_CASE:
-            self.output.insert(INSERT, "Lower case characters selected\n")
-            self.output.pack()
+            self._output.insert(INSERT, "Lower case characters selected\n")
+            self._output.pack()
         elif setting == PasswordSettings.NUMBER:
-            self.output.insert(INSERT, "Numbers selected\n")
-            self.output.pack()
+            self._output.insert(INSERT, "Numbers selected\n")
+            self._output.pack()
         elif setting == PasswordSettings.SPECIAL_CHARACTER:
-            self.output.insert(INSERT, "Special characters selected\n")
-            self.output.pack()
+            self._output.insert(INSERT, "Special characters selected\n")
+            self._output.pack()
         elif setting == PasswordSettings.READABLE_NO_NUMBER:
-            self.output.insert(INSERT, "Readable without numbers selected\n")
-            self.output.pack()
+            self._output.insert(INSERT, "Readable without numbers selected\n")
+            self._output.pack()
         elif setting == PasswordSettings.READABLE_NUMBER:
-            self.output.insert(INSERT, "Readable with numbers selected\n")
-            self.output.pack()
+            self._output.insert(INSERT, "Readable with numbers selected\n")
+            self._output.pack()
 
     def __bindButtons(self):
         self.__upperCaseButton.bind('<Button-1>', self.__setUpperCase)
@@ -130,7 +129,7 @@ class GUI():
         self.__clearButton.pack()
 
     def draw(self):
-        self.output = Text(self.__window)
+        self.__output = Text(self.__window)
         self.__bindButtons()
         self.__packButtons()
         self.__window.mainloop()
