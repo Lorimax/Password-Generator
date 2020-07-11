@@ -1,14 +1,14 @@
 from tkinter import *
-from passwordEventHandler import *
-from passwordEvent import *
+from passwordConfigurationHandler import *
+from passwordConfiguration import *
 from passwordSettings import *
-from passwordSettings2EventConverter import *
+from passwordSettings2ConfigurationConverter import *
 
 class GUI():
     __window = Tk()
-    __eventHandler = PasswordEventHandler()
     __passwordSettings = []
-    __settings2Event = PasswordSettings2EventConverter()
+    __passwordLengthLabel = Label(None, text='Password length')
+    __passwordLengthEntry = Entry(None)
     __upperCaseButton = Button(None, text='Upper case characters')
     __lowerCaseButton = Button(None, text='Lower case characters')
     __numberButton = Button(None, text='Numbers')
@@ -18,15 +18,43 @@ class GUI():
     __createPasswordButton = Button(None, text='Create Password')
     __clearButton = Button(None, text='Clear')
 
+    def __isCorrectPasswordLength(self):
+        try:
+            self.__setPasswordLength()
+            if self.__passwordLength > 0:
+                return True
+            else:
+                self.__drawWrongPasswordLength()
+                return False
+        except:
+            self.__drawWrongPasswordLength()
+            return False
 
+    def __setPasswordLength(self):
+        self.__passwordLength = int(self.__passwordLengthEntry.get())
 
-    def __invokeEventHandler(self, event):
+    def __createPassword(self, event):
         if not self.__passwordSettings:
-            self.output.insert(INSERT, "Nothing selected!\n")
-            self.output.pack()
-        else:
-            converter = PasswordSettings2EventConverter()
-            self.__eventHandler.executeEvent(converter.convertSettings2Event(self.__passwordSettings), self.output)
+            self.__drawNothingSelected()
+        elif self.__isCorrectPasswordLength():
+            self.__setPasswordLength()
+            settingsConverter = PasswordSettings2ConfigurationConverter()
+            configurationHandler = PasswordConfigurationHandler()
+            passwordConfiguration = settingsConverter.convertSettings2Configuration(self.__passwordSettings)
+            password = configurationHandler.createPasswordFromConfiguration(passwordConfiguration, self.__passwordLength)
+            self.__drawPassword(password)
+
+    def __drawWrongPasswordLength(self):
+        self.output.insert(INSERT, "Invalid password length!\n")
+        self.output.pack()
+
+    def __drawNothingSelected(self):
+        self.output.insert(INSERT, "Nothing selected!\n")
+        self.output.pack()
+
+    def __drawPassword(self, password):
+        self.output.insert(INSERT, str(password) + '\n')
+        self.output.pack()
 
     def __setUpperCase(self, event):
         self.__drawSetting(PasswordSettings.UPPER_CASE)
@@ -54,11 +82,9 @@ class GUI():
         self.__drawSetting(PasswordSettings.READABLE_NUMBER)
         self.__passwordSettings.append(PasswordSettings.READABLE_NUMBER)
 
-
     def __clear(self, event):
         self.__passwordSettings.clear()
         self.output.delete('1.0', END)
-
 
     def __drawSetting(self,setting):
         if setting == PasswordSettings.UPPER_CASE:
@@ -80,22 +106,20 @@ class GUI():
             self.output.insert(INSERT, "Readable with numbers selected\n")
             self.output.pack()
 
-
-
     def __bindButtons(self):
         self.__upperCaseButton.bind('<Button-1>', self.__setUpperCase)
         self.__lowerCaseButton.bind('<Button-1>', self.__setLowerCase)
         self.__numberButton.bind('<Button-1>', self.__setNumber)
         self.__specialCharacterButton.bind('<Button-1>', self.__setSpecialCharacter)
-        self.__createPasswordButton.bind('<Button-1>', self.__invokeEventHandler)
+        self.__createPasswordButton.bind('<Button-1>', self.__createPassword)
         self.__readableNoNumberButton.bind('<Button-1>', self.__setReadableNoNumber)
         self.__readableNumberButton.bind('<Button-1>', self.__setReadableNumber)
         self.__clearButton.bind('<Button-1>', self.__clear)
+        self.__passwordLengthEntry.bind()
 
-
-    def draw(self):
-        self.output = Text(self.__window)
-        self.__bindButtons()
+    def __packButtons(self):
+        self.__passwordLengthLabel.pack()
+        self.__passwordLengthEntry.pack()
         self.__upperCaseButton.pack()
         self.__lowerCaseButton.pack()
         self.__numberButton.pack()
@@ -104,4 +128,9 @@ class GUI():
         self.__readableNumberButton.pack()
         self.__createPasswordButton.pack()
         self.__clearButton.pack()
+
+    def draw(self):
+        self.output = Text(self.__window)
+        self.__bindButtons()
+        self.__packButtons()
         self.__window.mainloop()

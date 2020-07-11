@@ -150,14 +150,14 @@ class PasswordGenerator():
                 password.append(str(random.choice(self.__specialCharacterList)))
         return ''.join(password)
 
-    def generateReadableNoNumberPassword(self):
+    def generateReadableNoNumberPassword(self, passwordLength):
         vowels = ['a','e','i','o','u','y']
         consonants = ['b','c','d','f','g','h','k','l','m','n','p','q','r','s','t','v','w','x','z']
         readableTwoConsonantCombinations = ['sp','th','sh','ch','fr','wh','ng']
         password = []
         charactersWritten = 0
         listChoice = random.randint(0,2)
-        while charactersWritten < 8:
+        while charactersWritten < passwordLength:
             if listChoice == 0: #append vowel
                 password.append(str(random.choice(vowels)))
                 charactersWritten += 1
@@ -167,7 +167,7 @@ class PasswordGenerator():
                 charactersWritten += 1
                 listChoice = 0
             elif listChoice == 2: #append consonant combination
-                if (8 - charactersWritten) > 2: #check for enough space
+                if (passwordLength - charactersWritten) > 2: #check for enough space
                     password.append(str(random.choice(readableTwoConsonantCombinations)))
                     charactersWritten += 2
                 else: #append single constant if not enough space for consonant combination
@@ -176,14 +176,17 @@ class PasswordGenerator():
                 listChoice = 0
         return ''.join(password)
 
-    def generateReadableNumberPassword(self):
+    def generateReadableNumberPassword(self, passwordLength):
         password = []
-        numbers = self.generateNumberPassword(random.randint(1,4))
+        if passwordLength < 5:
+            return self.generateNumberPassword(passwordLength)
+        numberDigits = random.randint(1,4)
+        numbers = self.generateNumberPassword(numberDigits)
         putNumbersFirst = bool(random.getrandbits(1))
         if putNumbersFirst:
             password.append(numbers)
-            password.append(str(self.generateReadableNoNumberPassword()))
+            password.append(str(self.generateReadableNoNumberPassword(passwordLength - numberDigits)))
         else:
-            password.append(str(self.generateReadableNoNumberPassword()))
+            password.append(str(self.generateReadableNoNumberPassword(passwordLength - numberDigits)))
             password.append(numbers)
         return ''.join(password)
