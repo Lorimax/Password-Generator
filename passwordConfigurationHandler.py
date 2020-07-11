@@ -3,40 +3,40 @@ from passwordConfiguration import *
 from tkinter import *
 
 class PasswordConfigurationHandler():
-    __generator = PasswordGenerator()
 
     def createPasswordFromConfiguration(self, passwordConfiguration, passwordLength):
+        generator = PasswordGenerator()
         if passwordConfiguration == PasswordConfiguration.UPPER_CASE:
-            return str(self.__generator.generateUpperCasePassword(passwordLength))
+            return str(generator.generateUpperCasePassword(passwordLength))
         elif passwordConfiguration == PasswordConfiguration.LOWER_CASE:
-            return str(self.__generator.generateLowerCasePassword(passwordLength))
+            return str(generator.generateLowerCasePassword(passwordLength))
         elif passwordConfiguration == PasswordConfiguration.NUMBER:
-            return str(self.__generator.generateNumberPassword(passwordLength))
+            return str(generator.generateNumberPassword(passwordLength))
         elif passwordConfiguration == PasswordConfiguration.SPECIAL_CHARACTER:
-            return str(self.__generator.generateSpecialCharacterPassword(passwordLength))
+            return str(generator.generateSpecialCharacterPassword(passwordLength))
         elif passwordConfiguration == PasswordConfiguration.LOWER_UPPER_CASE:
-            return str(self.__generator.generateLowerUpperCasePassword(passwordLength))
+            return str(generator.generateLowerUpperCasePassword(passwordLength))
         elif passwordConfiguration == PasswordConfiguration.UPPER_CASE_NUMBER:
-            return str(self.__generator.generateUpperCaseNumberPassword(passwordLength))
+            return str(generator.generateUpperCaseNumberPassword(passwordLength))
         elif passwordConfiguration == PasswordConfiguration.UPPER_CASE_SPECIAL_CHARACTER:
-            return str(self.__generator.generateUpperCaseSpecialCharacterPassword(passwordLength))
+            return str(generator.generateUpperCaseSpecialCharacterPassword(passwordLength))
         elif passwordConfiguration == PasswordConfiguration.LOWER_CASE_NUMBER:
-            return str(self.__generator.generateLowerCaseNumberPassword(passwordLength))
+            return str(generator.generateLowerCaseNumberPassword(passwordLength))
         elif passwordConfiguration == PasswordConfiguration.NUMBER_SPECIAL_CHARACTER:
-            return str(self.__generator.generateNumberSpecialCharacterPassword(passwordLength))
+            return str(generator.generateNumberSpecialCharacterPassword(passwordLength))
         elif passwordConfiguration == PasswordConfiguration.LOWER_CASE_SPECIAL_CHARACTER:
-            return str(self.__generator.generateLowerCaseSpecialCharacterPassword(passwordLength))
+            return str(generator.generateLowerCaseSpecialCharacterPassword(passwordLength))
         elif passwordConfiguration == PasswordConfiguration.LOWER_UPPER_CASE_NUMBER:
-            return str(self.__generator.generateLowerUpperCaseNumberPassword(passwordLength))
+            return str(generator.generateLowerUpperCaseNumberPassword(passwordLength))
         elif passwordConfiguration == PasswordConfiguration.LOWER_UPPER_CASE_SPECIAL_CHARACTER:
-            return str(self.__generator.generateLowerUpperCaseSpecialCharacterPassword(passwordLength))
+            return str(generator.generateLowerUpperCaseSpecialCharacterPassword(passwordLength))
         elif passwordConfiguration == PasswordConfiguration.UPPER_CASE_SPECIAL_CHARACTER_NUMBER:
-            return str(self.__generator.generateUpperCaseSpecialCharacterNumberPassword(passwordLength))
+            return str(generator.generateUpperCaseSpecialCharacterNumberPassword(passwordLength))
         elif passwordConfiguration == PasswordConfiguration.LOWER_CASE_SPECIAL_CHARACTER_NUMBER:
-            return str(self.__generator.generateLowerCaseSpecialCharacterNumberPassword(passwordLength))
+            return str(generator.generateLowerCaseSpecialCharacterNumberPassword(passwordLength))
         elif passwordConfiguration == PasswordConfiguration.LOWER_UPPER_CASE_SPECIAL_CHARACTER_NUMBER:
-            return str(self.__generator.generateLowerUpperCaseSpecialCharacterNumberPassword(passwordLength))
+            return str(generator.generateLowerUpperCaseSpecialCharacterNumberPassword(passwordLength))
         elif passwordConfiguration == PasswordConfiguration.READABLE_NO_NUMBER:
-            return str(self.__generator.generateReadableNoNumberPassword(passwordLength))
+            return str(generator.generateReadableNoNumberPassword(passwordLength))
         elif passwordConfiguration == PasswordConfiguration.READABLE_NUMBER:
-            return str(self.__generator.generateReadableNumberPassword(passwordLength))
+            return str(generator.generateReadableNumberPassword(passwordLength))

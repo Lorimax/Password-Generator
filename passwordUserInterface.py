@@ -87,23 +87,23 @@ class GUI():
 
     def __drawSetting(self,setting):
         if setting == PasswordSettings.UPPER_CASE:
-            self._output.insert(INSERT, "Upper case characters selected\n")
-            self._output.pack()
+            self.__output.insert(INSERT, "Upper case characters selected\n")
+            self.__output.pack()
         elif setting == PasswordSettings.LOWER_CASE:
-            self._output.insert(INSERT, "Lower case characters selected\n")
-            self._output.pack()
+            self.__output.insert(INSERT, "Lower case characters selected\n")
+            self.__output.pack()
         elif setting == PasswordSettings.NUMBER:
-            self._output.insert(INSERT, "Numbers selected\n")
-            self._output.pack()
+            self.__output.insert(INSERT, "Numbers selected\n")
+            self.__output.pack()
         elif setting == PasswordSettings.SPECIAL_CHARACTER:
-            self._output.insert(INSERT, "Special characters selected\n")
-            self._output.pack()
+            self.__output.insert(INSERT, "Special characters selected\n")
+            self.__output.pack()
         elif setting == PasswordSettings.READABLE_NO_NUMBER:
-            self._output.insert(INSERT, "Readable without numbers selected\n")
-            self._output.pack()
+            self.__output.insert(INSERT, "Readable without numbers selected\n")
+            self.__output.pack()
         elif setting == PasswordSettings.READABLE_NUMBER:
-            self._output.insert(INSERT, "Readable with numbers selected\n")
-            self._output.pack()
+            self.__output.insert(INSERT, "Readable with numbers selected\n")
+            self.__output.pack()
 
     def __bindButtons(self):
         self.__upperCaseButton.bind('<Button-1>', self.__setUpperCase)
@@ -116,7 +116,7 @@ class GUI():
         self.__clearButton.bind('<Button-1>', self.__clear)
         self.__passwordLengthEntry.bind()
 
-    def __packButtons(self):
+    def __packGUIElements(self):
         self.__passwordLengthLabel.pack()
         self.__passwordLengthEntry.pack()
         self.__upperCaseButton.pack()
@@ -127,9 +127,10 @@ class GUI():
         self.__readableNumberButton.pack()
         self.__createPasswordButton.pack()
         self.__clearButton.pack()
+        self.__output.pack()
 
     def draw(self):
         self.__output = Text(self.__window)
         self.__bindButtons()
-        self.__packButtons()
+        self.__packGUIElements()
         self.__window.mainloop()

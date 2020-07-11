@@ -153,7 +153,7 @@ class PasswordGenerator():
     def generateReadableNoNumberPassword(self, passwordLength):
         vowels = ['a','e','i','o','u','y']
         consonants = ['b','c','d','f','g','h','k','l','m','n','p','q','r','s','t','v','w','x','z']
-        readableTwoConsonantCombinations = ['sp','th','sh','ch','fr','wh','ng']
+        readableTwoConsonantCombinations = ['sp','th','sh','ch','fr','wh']
         password = []
         charactersWritten = 0
         listChoice = random.randint(0,2)
